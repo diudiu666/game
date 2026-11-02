@@ -1,0 +1,19 @@
+{
+  "name": "territory-3d",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server/index.mjs",
+    "dev": "node server/index.mjs",
+    "static": "node serve.mjs",
+    "sim": "node tools/sim.mjs",
+    "nettest": "node tools/nettest.mjs"
+  },
+  "dependencies": {
+    "three": "^0.160.0",
+    "ws": "^8.22.0"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.64.1"
+  }
+}
