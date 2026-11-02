@@ -2,15 +2,10 @@
  * 浏览器验收脚本：截图 + 控制台报错 + 模拟点击占领（走单人练习，不依赖别人）
  * 用法: node tools/shot.mjs [base]
  */
-import { chromium } from 'playwright-core';
-import { homedir } from 'node:os';
-import { join } from 'node:path';
+import { launch } from './lib/harness.mjs';
 
-const exe = join(homedir(), 'AppData/Local/ms-playwright/chromium-1228/chrome-win64/chrome.exe');
 
-const browser = await chromium.launch({
-  executablePath: exe,
-  args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
+const browser = await launch({  args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
 });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 

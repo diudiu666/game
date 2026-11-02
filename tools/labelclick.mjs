@@ -8,14 +8,10 @@
  *
  * 用法: node tools/labelclick.mjs [baseUrl]
  */
-import { chromium } from 'playwright-core';
-import { homedir } from 'node:os';
-import { join } from 'node:path';
+import { launch } from './lib/harness.mjs';
 
 const BASE = process.argv[2] || 'http://localhost:5173';
-const exe = join(homedir(), 'AppData/Local/ms-playwright/chromium-1228/chrome-win64/chrome.exe');
-const browser = await chromium.launch({
-  executablePath: exe,
+const browser = await launch({
   args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
 });
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

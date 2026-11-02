@@ -1,11 +1,7 @@
 /** 复现：单人模式把人机全清空 / 占满全图后，客户端到底有没有结算提示 */
-import { chromium } from 'playwright-core';
-import { homedir } from 'node:os';
-import { join } from 'node:path';
+import { launch } from './lib/harness.mjs';
 
-const exe = join(homedir(), 'AppData/Local/ms-playwright/chromium-1228/chrome-win64/chrome.exe');
-const browser = await chromium.launch({
-  executablePath: exe,
+const browser = await launch({
   args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
 });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });

@@ -7,14 +7,10 @@
  * 说明：斩首要用「改本地状态再点」的方式复现，那只有单人局是客户端权威，
  *      所以前半段在联机房间里验同步，后半段切单人局验表现。
  */
-import { chromium } from 'playwright-core';
-import { homedir } from 'node:os';
-import { join } from 'node:path';
+import { launch } from './lib/harness.mjs';
 
 const BASE = process.argv[2] || 'http://localhost:5173';
-const exe = join(homedir(), 'AppData/Local/ms-playwright/chromium-1228/chrome-win64/chrome.exe');
-const browser = await chromium.launch({
-  executablePath: exe,
+const browser = await launch({
   args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
 });
 const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });

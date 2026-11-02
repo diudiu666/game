@@ -4,18 +4,14 @@
  * 需要 TD_DURATION=15 的服务器。
  */
 
-import { chromium } from 'playwright-core';
-import { homedir } from 'node:os';
-import { join } from 'node:path';
+import { launch } from './lib/harness.mjs';
 
 const BASE = process.argv[2] || 'http://localhost:5175';
-const exe = join(homedir(), 'AppData/Local/ms-playwright/chromium-1228/chrome-win64/chrome.exe');
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const errors = [];
 const VIEW = { width: 820, height: 560 };
 
-const browser = await chromium.launch({
-  executablePath: exe,
+const browser = await launch({
   args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
 });
 

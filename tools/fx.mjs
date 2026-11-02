@@ -2,15 +2,11 @@
  * 特效验收：占领 / 被占领 两条路径各抓几帧，并检查特效对象有没有泄漏
  * 用法: node tools/fx.mjs [base]
  */
-import { chromium } from 'playwright-core';
-import { homedir } from 'node:os';
-import { join } from 'node:path';
+import { launch } from './lib/harness.mjs';
 
 const BASE = process.argv[2] || 'http://localhost:5173/';
-const exe = join(homedir(), 'AppData/Local/ms-playwright/chromium-1228/chrome-win64/chrome.exe');
 
-const browser = await chromium.launch({
-  executablePath: exe,
+const browser = await launch({
   args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
 });
 const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });

@@ -2,14 +2,10 @@
  * 验收：兵营升级后「攻占消耗」真的下降，且发育面板文案跟着变。
  * 用法: node tools/upgradeshot.mjs [baseUrl]
  */
-import { chromium } from 'playwright-core';
-import { homedir } from 'node:os';
-import { join } from 'node:path';
+import { launch } from './lib/harness.mjs';
 
 const BASE = process.argv[2] || 'http://localhost:5173';
-const exe = join(homedir(), 'AppData/Local/ms-playwright/chromium-1228/chrome-win64/chrome.exe');
-const browser = await chromium.launch({
-  executablePath: exe,
+const browser = await launch({
   args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
 });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });

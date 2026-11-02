@@ -5,21 +5,16 @@
  * 用法: node tools/mplay.mjs [players=3] [base=http://localhost:5173]
  */
 
-import { chromium } from 'playwright-core';
-import { homedir } from 'node:os';
-import { join } from 'node:path';
+import { launch } from './lib/harness.mjs';
 import { mkdirSync } from 'node:fs';
 
 const N = Number(process.argv[2] || 3);
 const BASE = process.argv[3] || 'http://localhost:5173';
-const exe = join(homedir(), 'AppData/Local/ms-playwright/chromium-1228/chrome-win64/chrome.exe');
 mkdirSync('shots', { recursive: true });
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-const browser = await chromium.launch({
-  executablePath: exe,
-  args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
+const browser = await launch({  args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
 });
 
 const VIEW = { width: 900, height: 620 };
