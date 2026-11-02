@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 安全问题
+    url: https://github.com/diudiu666/game/security/advisories/new
+    about: 发现可被利用的漏洞请走私密报告，不要开公开 issue
+  - name: 先看看 README
+    url: https://github.com/diudiu666/game#readme
+    about: 跑不起来、端口不对、测试脚本报错，README 的「跑起来」和 CONTRIBUTING 的「测试」两节多半已经有答案

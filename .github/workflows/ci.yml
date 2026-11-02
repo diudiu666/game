@@ -1,0 +1,86 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  rules:
+    name: 规则与地图（纯逻辑）
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+
+      - name: 地图连通性（200 张随机图）
+        run: node tools/connectivity.mjs
+
+      - name: 都城 / 战损 / 斩首（28 项断言）
+        run: node tools/capital.mjs
+
+      - name: 无头对局模拟能跑完
+        run: node tools/sim.mjs
+
+  protocol:
+    name: 联机协议
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+
+      - name: 起服务器并跑协议测试
+        run: |
+          TD_DURATION=20 node server/index.mjs 5180 &
+          SERVER_PID=$!
+          for i in $(seq 1 100); do
+            if curl -sf http://127.0.0.1:5180/ > /dev/null; then break; fi
+            sleep 0.2
+          done
+          node tools/nettest.mjs http://127.0.0.1:5180
+          kill $SERVER_PID
+
+  browser:
+    name: 浏览器验收（无头 WebGL）
+    runs-on: ubuntu-latest
+    # 无头 SwiftShader 在 CI 上偶发抽风（WebGL 上下文创建失败），
+    # 暂时不让它把合并卡死；本地改了渲染相关的代码请务必自己跑一遍。
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+
+      - name: 安装 Chromium
+        run: npx --yes playwright@1.64.1 install --with-deps chromium
+
+      - name: 起服务器并跑拾取 / 名牌验收
+        run: |
+          node server/index.mjs 5180 &
+          SERVER_PID=$!
+          for i in $(seq 1 100); do
+            if curl -sf http://127.0.0.1:5180/ > /dev/null; then break; fi
+            sleep 0.2
+          done
+          node tools/pickcheck.mjs http://127.0.0.1:5180
+          node tools/nameplates.mjs http://127.0.0.1:5180
+          kill $SERVER_PID

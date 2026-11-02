@@ -1,0 +1,59 @@
+name: 玩法 / 优化建议
+description: 新机制、数值调整、手感改进
+title: "[建议] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        提建议时最有说服力的三样东西：**你想解决什么问题**、**现在为什么不行**、**能不能用 `tools/` 里的脚本量化**。
+        这个仓库里所有数值改动都是先用 `tools/sim.mjs` / `tools/capsweep.mjs` 跑出对照才进主干的。
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 建议类型
+      options:
+        - 新玩法 / 新机制
+        - 数值调整（现有参数）
+        - 手感 / 操作
+        - 表现 / 特效
+        - 工程 / 可维护性
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 你想解决什么问题
+      description: 描述体验上的痛点，而不是先给方案。
+      placeholder: |
+        中后期基本没人再买兵营——兵力常年够用，折扣省下的那点兵感知不到。
+    validations:
+      required: true
+
+  - type: textarea
+    id: idea
+    attributes:
+      label: 你的想法
+      description: 有方案就写，没有也行（写成「希望达成什么效果」同样有用）。
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 数据 / 复现依据（可选）
+      description: 跑过什么脚本、看到什么分布，贴摘要即可。
+      render: shell
+      placeholder: |
+        node tools/capstudy.mjs
+        贴上限时间 0.0% | 产出浪费 0.0% | 兵营折扣实际生效 12%
+
+  - type: checkboxes
+    id: willing
+    attributes:
+      label: 你愿意自己动手吗
+      options:
+        - label: 我可以提 PR（会按 CONTRIBUTING.md 补断言）
+        - label: 我可以帮忙做数值验证 / 试玩

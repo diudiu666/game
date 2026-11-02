@@ -1,13 +1,39 @@
 {
   "name": "territory-3d",
+  "version": "0.1.0",
   "private": true,
+  "description": "3D 区域争夺小游戏：Voronoi 切图 + Three.js 渲染 + 服务端权威联机（最多 4 人）",
+  "keywords": [
+    "three.js",
+    "webgl",
+    "multiplayer",
+    "websocket",
+    "game",
+    "voronoi"
+  ],
+  "license": "MIT",
+  "author": "diudiu666",
+  "homepage": "https://github.com/diudiu666/game#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diudiu666/game.git"
+  },
+  "bugs": {
+    "url": "https://github.com/diudiu666/game/issues"
+  },
   "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "start": "node server/index.mjs",
     "dev": "node server/index.mjs",
     "static": "node serve.mjs",
     "sim": "node tools/sim.mjs",
-    "nettest": "node tools/nettest.mjs"
+    "nettest": "node tools/nettest.mjs",
+    "test": "node tools/connectivity.mjs && node tools/capital.mjs && node tools/sim.mjs",
+    "test:browser": "node tools/pickcheck.mjs && node tools/nameplates.mjs",
+    "hero": "node tools/hero.mjs"
   },
   "dependencies": {
     "three": "^0.160.0",

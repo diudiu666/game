@@ -1,0 +1,18 @@
+# 编辑器统一配置：缩进、换行、编码。
+# 这个项目会有人在 Windows / macOS / Linux 上同时改，先把这个说清楚能少很多假 diff。
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+[*.md]
+# Markdown 里行尾两个空格是「强制换行」，不能删
+trim_trailing_whitespace = false
+
+[*.{yml,yaml}]
+indent_size = 2

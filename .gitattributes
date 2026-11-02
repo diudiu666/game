@@ -1,0 +1,15 @@
+# 统一换行符为 LF：这个项目在 Windows / macOS / Linux 上都要能跑，
+# 不统一的话每次 clone 下来都会有一堆「文件全被改了」的假 diff。
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+
+package-lock.json linguist-generated
+docs/** linguist-documentation

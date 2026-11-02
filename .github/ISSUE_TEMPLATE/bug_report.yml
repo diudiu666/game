@@ -1,0 +1,78 @@
+name: Bug 报告
+description: 玩法、联机、渲染上的问题都可以报
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        谢谢反馈。这个项目最怕「说不清怎么复现」，所以下面几项尽量都填上——尤其是**一局里的具体时间点**和**当时的兵力/金币**。
+        如果是安全相关的问题，请不要在这里写，看 [SECURITY.md](../blob/main/SECURITY.md)。
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: 问题出在哪一块
+      options:
+        - 玩法 / 数值（占领消耗、兵力增长、都城、战损、胜负判定）
+        - 联机（房间、开局、同步、断线重连、观战）
+        - 渲染 / 交互（点不到地、名牌、特效、视角）
+        - 移动端 / 竖屏
+        - 启动 / 端口 / 依赖
+        - 不确定
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 发生了什么
+      description: 实际看到的现象，越具体越好（「占了 62 格没有任何提示」比「结算有问题」有用得多）。
+      placeholder: |
+        单人模式清完图之后，什么都没弹出来，等了 10 秒还是空白。
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 你预期是什么
+      placeholder: 应该弹出结算卡，显示胜者和名次。
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      description: 从打开页面开始写，包括点哪儿、什么时候点的。
+      placeholder: |
+        1. npm start
+        2. 点「单人练习」
+        3. 一路占领直到只剩自己的地
+        4. 无提示
+    validations:
+      required: true
+
+  - type: input
+    id: mode
+    attributes:
+      label: 模式与人数
+      placeholder: 单人练习 / 2 人房 / 4 人房（含 AI 几个）
+
+  - type: input
+    id: env
+    attributes:
+      label: 环境
+      placeholder: Windows 11 · Chrome 132 · Node 22.11 · 桌面 1440×900（或 iPhone 13 Safari）
+    validations:
+      required: true
+
+  - type: textarea
+    id: console
+    attributes:
+      label: 控制台报错 / 截图
+      description: |
+        F12 打开控制台，把红色报错贴上来；有画面问题的直接拖图片进来。
+        也可以用 `window.__game.state` 把当时的局面贴出来。
+      render: shell
